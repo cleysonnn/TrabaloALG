@@ -42,7 +42,7 @@ def createBoard(linhas,colunas,aleatoria):
         linhasDaMatriz = []
         listBI.append(linhasDaMatriz)
         for c in range(colunas):
-            listBI[k].append(randrange(aleatoria))
+            linhasDaMatriz.append(randrange(aleatoria))
     return listBI
 #
 #  Insert your implementation of createBoard here
@@ -85,7 +85,26 @@ def clearAll(board, sym):
 #
 #  Insert your implementations of vLineAt and hLineAt here
 #
+def vLineAt(board,r1,c1):
+    boolean = False    
+    if r1!=None and c1!=None and(r1>=2 or r1 == (len(board)-1)):
+        if board[r1][c1] == board[r1-1][c1] and board[r1][c1] == board[r1-2][c1]:
+            boolean = True
+    if r1!=None and c1!=None and(r1>=1 or r1 == (len(board)-2)):
+            
+            
+    return False
 
+
+def hLineAt(board,r1,c1):
+    for k in board:
+        if k[r1][c1] == k[r1][c1+1] and k[r1][c1+1] == k[r1][c1+2]:
+            return True
+        if k[r1][c1] == k[r1][c1-1] and k[r1][c1-1] == k[r1][c1-2]:
+            return True
+        if k[r1][c1] == k[r1][c1-1] and k[r1][c1-1] == k[r1][c1+1]:
+            return True
+    return False
 #
 #  Report whether or not two pieces on the board can be swapped.  The function
 #  should only return true when performing the swap results in a line being
@@ -99,8 +118,12 @@ def clearAll(board, sym):
 #  Returns: True if the proposed swap creates a line.  False otherwise.
 #
 def canSwap(board, r1, c1, r2, c2):
-  return True
-
+    if vLineAt != True:
+        return False
+    if hLineAt != True:
+        return False
+ 
+    return True
 #
 #  Identify two adjacent positions on the board that can be swapped to 
 #  form a line.
@@ -114,6 +137,11 @@ def canSwap(board, r1, c1, r2, c2):
 #
 def hint(board):
   return -1, -1, -1, -1
+
+
+
+
+
 
 ##############################################################################
 #

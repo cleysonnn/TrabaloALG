@@ -35,21 +35,17 @@ LOSE = -1
 #
 ###############################################################################
 
-def createBoard(linhas,colunas,aleatoria):
-    listBI = []
-    for k in range(linhas):
-        linhasDaMatriz = []
-        listBI.append(randrange)
-        listBI.append(linhasDaMatriz)
-        for c in range(colunas):
-            colunasDaMatriz = []
-            listBI.append(colunasDaMatriz)
-            listBI.append(randrange)
-    return listBI
 #
 #  Insert your implementation of createBoard here
 #
-
+def createBoard(numLinhas, numColunas, numPecasUnicas):
+	board = []
+	for k in range(numLinhas):
+		lines = []
+		for n in range(numColunas):
+			lines.append(randrange(0,numPecasUnicas))
+		board.append(lines)
+	return board
 #
 #  Modify the board by swapping two pieces.
 #
@@ -61,7 +57,10 @@ def createBoard(linhas,colunas,aleatoria):
 #  Returns: None -- the game board passed as a parameter is modified
 #
 def swap(board, r1, c1, r2, c2):
-  pass
+	simbI = board[r1][c1]
+	board[r1][c1] = board[r2][c2]
+	board[r2][c2] = simbI
+	pass
 
 #
 #  Modify the board to clear all occurences of a given piece, replacing them
@@ -74,11 +73,42 @@ def swap(board, r1, c1, r2, c2):
 #  Returns: None -- the game board passed as a parameter is modified
 #
 def clearAll(board, sym):
-  pass
+	for linha in board:
+		for index in range(len(linha)):
+			if linha[index] == sym:
+				linha[index] = EMPTY
+	pass
 
 #
 #  Insert your implementations of vLineAt and hLineAt here
 #
+def vLineAt(board, line, column):
+  boolean = False
+  if line != None and column != None and (line>=2 or line == (len(board)-1)):
+    if (board[line][column] == board[line-1][column] and board[line][column] == board[line-2][column]):
+      boolean = True
+  if line != None and column != None and (line>=1 and line<(len(board)-1)):
+    if (board[line][column] == board[line+1][column] and board[line][column] == board[line-1][column]):
+      boolean = True
+  if line != None and column != None and (line>=0 and line<(len(board)-2)):
+    if (board[line][column] == board[line+1][column] and board[line][column] == board[line+2][column]):
+      boolean = True
+  return boolean  
+
+def hLineAt(board, line, column):
+  boolean = False
+  if line != None and column != None and (column>=2 or column == (len(board[line])-1)):
+    if (board[line][column] == board[line][column-1] and board[line][column] == board[line][column-2]):
+      boolean = True
+  if line != None and column != None and (column>=1 and column<(len(board[line])-1)):
+    if (board[line][column] == board[line][column-1] and board[line][column] == board[line][column+1]):
+      boolean = True
+  if line != None and column != None and (column>=0 and column<(len(board[line])-2)):
+    if (board[line][column] == board[line][column+1] and board[line][column] == board[line][column+2]):
+      boolean = True
+  return boolean
+
+
 
 #
 #  Report whether or not two pieces on the board can be swapped.  The function
@@ -93,7 +123,16 @@ def clearAll(board, sym):
 #  Returns: True if the proposed swap creates a line.  False otherwise.
 #
 def canSwap(board, r1, c1, r2, c2):
-  return True
+	swap(board,r1,c1,r2,c2)
+	if hLineAt(board,r1,c1) or hLineAt(board,r2,c2):
+		swap(board,r1,c1,r2,c2)
+		return True
+	elif vLineAt(board,r1,c1) or vLineAt(board,r2,c2):
+		swap(board,r1,c1,r2,c2)
+		return True
+	else:
+		swap(board,r1,c1,r2,c2)
+		return False
 
 #
 #  Identify two adjacent positions on the board that can be swapped to 
