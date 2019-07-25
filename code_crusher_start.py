@@ -1,6 +1,7 @@
 #
 #  The location to insert your code is clearly marked -- it begins on line 32.
 #
+
 from SimpleGraphics import *
 from random import randrange, shuffle
 from time import time, sleep
@@ -11,6 +12,7 @@ import inspect
 import sys
 import traceback
 import os
+import pygame
 
 # Where is the 'hole' for the game board in the background image?
 HOFF = 200
@@ -1731,6 +1733,10 @@ def drawStatus(score, score_width, target_score, turns_left):
 
 
 def main():
+  pygame.init()
+  pygame.mixer.music.load("Game of Thrones - Tema de Abertura  Oppening theme.mp3")
+  pygame.mixer.music.play()
+        
   if os.path.isfile("sprites.gif") == False:
     print("sprites.gif must be located in the same folder / directory as")
     print("your .py file.  Ensure that the name of the file is in all")
@@ -1773,7 +1779,7 @@ def main():
       text(400, y, difficulty)
       y += 70
     
-    #play()
+   # play()
     update()
 
     if selected != "" and leftButtonPressed():
